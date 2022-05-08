@@ -1,4 +1,2 @@
-﻿  glad.c
-  Source.cpp
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflita com uso de outras bibliotecas; use /NODEFAULTLIB:library
-  HelloTriangle.vcxproj -> C:\GitHub\CG_2022_1\HelloTriangle\Debug\HelloTriangle.exe
+﻿  Source.cpp
+  HelloTriangle.vcxproj -> D:\Visual Studio\Projetos\CG_2022\HelloTriangle\Debug\HelloTriangle.exe
