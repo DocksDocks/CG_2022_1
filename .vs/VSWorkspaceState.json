@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\exs corrigidos",
+    "\\exs corrigidos\\vinicassol CG_2022_1 main 1_ExerciciosCorrigidos",
+    "\\HelloTriangle",
+    "\\HelloTriangle\\HelloTriangle"
   ],
-  "SelectedNode": "\\HelloTriangle.sln",
+  "SelectedNode": "\\HelloTriangle\\HelloTriangle\\Source.cpp",
   "PreviewInSolutionExplorer": false
 }

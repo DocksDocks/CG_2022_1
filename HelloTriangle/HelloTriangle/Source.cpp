@@ -67,7 +67,7 @@ int main()
 //#endif
 
 	// Criação da janela GLFW
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Triangulo modificado - Eduardo Marquez", nullptr, nullptr);` // modificado a aba do triangulo
+		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Pressione A - B - D ou E para navegar", nullptr, nullptr); // modificado a aba do triangulo
 	glfwMakeContextCurrent(window);
 
 	// Fazendo o registro da função de callback para a janela GLFW
@@ -114,24 +114,61 @@ int main()
 		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
 		glfwPollEvents();
 
-		// Limpa o buffer de cor
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //cor de fundo
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glLineWidth(10);
-		// removido o tamanho do ponto
+		bool a = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
+		bool b = glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS;
+		bool d = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
+		bool e = glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS;
 		
-		// Chamada de desenho - drawcall
-		// Poligono Preenchido - GL_TRIANGLES
-		glUniform4f(colorLoc, 0.0f, 1.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//6.Faça o desenho de um círculo na tela, utilizando a equação paramétrica do círculo para gerar os vértices.Depois disso :
+		//a)Desenhe um octágono
+		//COMPLETO
+		if (a) {
+			glLineWidth(15);
+			glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //cor de fundo
+			glClear(GL_COLOR_BUFFER_BIT);
+			glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
+			glDrawArrays(GL_TRIANGLE_FAN, 0, 8);
+			glBindVertexArray(VAO);
+		}
 
-		// Chamada de desenho - drawcall
-		// CONTORNO - GL_LINE_LOOP
-		// PONTOS - GL_POINTS
-		// REMOVIDO OS 3 PONTOS
-	
+		//b)Desenhe um pentágono
+		if (b) {
+			glClear(GL_COLOR_BUFFER_BIT);
+			glLineWidth(15);
+			glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
+			glDrawArrays(GL_TRIANGLE_FAN, 8, 5);
+			glBindVertexArray(VAO);
+		}
+		/*d)Desenhe uma fatia de pizza*/
+		if (d) {
+			glClear(GL_COLOR_BUFFER_BIT);
+			glLineWidth(15);
+			glUniform4f(colorLoc, 1.0f, 1.0f, 0.0f, 1.0f);
+			glDrawArrays(GL_TRIANGLE_FAN, 13, 21);
+		}
+		//e)Desenhe uma “estrela”
+		//glClearColor(1.0f, 1.0f, 1.0f, 1.0f); //cor de fundo
+		if (e) {
+			glClear(GL_COLOR_BUFFER_BIT);
+			glLineWidth(30);
+			glClear(GL_COLOR_BUFFER_BIT);
+			glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
+			glBindVertexArray(VAO);
+			glDrawArrays(GL_TRIANGLES, 34, 15);
+			glUniform4f(colorLoc, 1.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
+			glBindVertexArray(VAO);
+			glDrawArrays(GL_TRIANGLE_FAN, 49, 5);
+		}
+		/*
+		if(glwGetKey(window,GLFW_KEY_A) == GLFW_PRESS)
+			//codigo da a)
+		if(glwGetKey(window,GLFW_KEY_B) == GLFW_PRESS)
+			//codigo da b)
+		if(glwGetKey(window,GLFW_KEY_C) == GLFW_PRESS)
+			//codigo da c)
+		if(glwGetKey(window,GLFW_KEY_E) == GLFW_PRESS)
+			//codigo da e)
+			*/
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
 	}
@@ -211,10 +248,82 @@ int setupGeometry()
 	// Cada atributo do vértice (coordenada, cores, coordenadas de textura, normal, etc)
 	// Pode ser arazenado em um VBO único ou em VBOs separados
 	GLfloat vertices[] = {
-		-0.5, -0.5, 0.0,
-		 0.5, -0.5, 0.0,
-		 0.0, 0.5, 0.0,
-		 //outro triangulo vai aqui
+		//6-A OCTAGONO - COMPLETO // 8
+		0.51f, 0.77f, 0.0f,
+		0.7f, 0.77f, 0.0f,
+		0.83f, 0.63f, 0.0f,
+		0.83f, 0.43f, 0.0f,
+		0.7f, 0.29f, 0.0f,
+		0.51f, 0.29f, 0.0f,
+		0.38f, 0.43f, 0.0f,
+		0.38f, 0.63f, 0.0f,
+		//6-B PENTAGONO - COMPLETO // 8 + 5
+		-0.6f, -0.2f, 0.0f,// a
+		-0.35f, -0.36f, 0.0f,//b
+		-0.4f, -0.65f, 0.0f,//c
+		-0.8f, -0.65f, 0.0f,//d
+		-0.85f, -0.36f, 0.0f,//e
+		// 6-D - Fatia de Pizza 1 + 20
+		0.0f, 0.0f, 0.0f,
+		//1par
+		-0.25f, 0.42f, 0.0f,
+		-0.25f, 0.40f, 0.0f,
+		//2par
+		-0.25f, 0.4f, 0.0f,
+		-0.1875f, 0.42f, 0.0f,
+		//3par
+		-0.1875f, 0.42f, 0.0f,
+		-0.125f, 0.44f, 0.0f,
+		//4par
+		-0.125f, 0.44f, 0.0f,
+		-0.0625f, 0.46f, 0.0f,
+		//5par
+		-0.0625f, 0.46f, 0.0f,
+		0.0f, 0.48f, 0.0f,
+		//6par
+		0.0f, 0.48f, 0.0f,
+		0.0625f, 0.48f, 0.0f,
+		//7par
+		0.0625f, 0.48f, 0.0f,
+		0.125f, 0.46f, 0.0f,
+		//8par
+		0.125f, 0.46f, 0.0f,
+		0.1875f, 0.44f, 0.0f,
+		//9par
+		0.1875f, 0.44f, 0.0f,
+		0.25f, 0.42f, 0.0f,
+		//10 par
+		0.25f, 0.42f, 0.0f,
+		0.25f, 0.40f, 0.0f,
+
+		/*ESTRELA 6 - E) COMPLETO*/
+		//Primeiro Triangulo
+		-0.60f, 0.77f, 0.0f, //35
+		-0.42f, 0.77f, 0.0f,
+		-0.58f, 0.68f, 0.0f,
+		//Segundo Triangulo
+		-0.64f, 1.00f, 0.0f, //38
+		-0.68f, 0.77f, 0.0f,
+		-0.60f, 0.77f, 0.0f,
+		//Terceiro Triangulo
+		-0.68f, 0.77f, 0.0f, //41
+		-0.70f, 0.68f, 0.0f,
+		-0.86f, 0.77f, 0.0f,
+		//Quarto Triangulo
+		-0.64f, 0.63f, 0.0f, //44
+		-0.70f, 0.68f, 0.0f,
+		-0.82f, 0.43f, 0.0f,
+		//Quinto Triangulo
+		-0.64f, 0.63f, 0.0f, //47
+		-0.58f, 0.68f, 0.0f,
+		-0.51f, 0.43f, 0.0f,
+		//pentagono - triangle fan
+		-0.60f, 0.77f, 0.0f,
+		-0.68f, 0.77f, 0.0f,
+		-0.70f, 0.68f, 0.0f,
+		-0.64f, 0.63f, 0.0f,
+		-0.58f, 0.68f, 0.0f
+		//FIM ESTRELA
 	};
 
 	GLuint VBO, VAO;
